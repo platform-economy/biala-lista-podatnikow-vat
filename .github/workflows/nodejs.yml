@@ -17,8 +17,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - name: yarn install, build, and test
-      uses: thirdwave-network/biala-lista-podatnikow-vat-action@master
       run: |
         yarn install
         yarn build
@@ -28,3 +28,6 @@ jobs:
         BRANCH: gh-pages
         FOLDER: build
         BUILD_SCRIPTS: yarn install && yarn build
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@2.0.3
+
