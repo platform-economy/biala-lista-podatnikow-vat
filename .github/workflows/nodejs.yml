@@ -24,6 +24,6 @@ jobs:
         yarn test
       env:
         CI: true
-        BRANCH: master
+        BRANCH: gh-pages
         FOLDER: build
         BUILD_SCRIPTS: yarn install && yarn build
