@@ -11,6 +11,7 @@
     "react-dom": "^16.11.0",
     "react-dropzone": "^10.1.10",
     "react-dropzone-uploader": "^2.10.2",
+    "react-file-reader": "^1.1.4",
     "react-scripts": "3.2.0",
     "typescript": "3.7.2"
   },

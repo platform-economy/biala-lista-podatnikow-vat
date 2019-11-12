@@ -8,7 +8,17 @@ const App: React.FC = () => {
 
   const onDrop = useCallback(acceptedFiles => {
     // this callback will be called after files get dropped, we will get the acceptedFiles. If you want, you can even access the rejected files too
-    console.log(acceptedFiles);
+    const reader = new FileReader()
+
+    reader.onabort = () => console.log('file reading was aborted')
+    reader.onerror = () => console.log('file reading has failed')
+    reader.onload = () => {
+      const binaryString = reader.result
+      console.log(binaryString);
+    }
+
+    acceptedFiles.forEach(file => reader.readAsArrayBuffer(file))
+
   }, []);
 
   return (
@@ -26,7 +36,7 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
-        <Dropzone onDrop={onDrop} accept={"image/*"} />
+        <Dropzone onDrop={onDrop} accept={"text/*"} />
       </header>
     </div>
   );
