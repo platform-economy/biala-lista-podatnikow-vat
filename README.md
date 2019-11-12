@@ -6,6 +6,8 @@ https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka/
 
 https://www.npmjs.com/package/react-dropzone
 
+https://github.com/learnwithparam/logrocket-drag-and-drop
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
