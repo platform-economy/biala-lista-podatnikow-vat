@@ -1,8 +1,16 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Dropzone from "./Dropzone";
+
 
 const App: React.FC = () => {
+
+  const onDrop = useCallback(acceptedFiles => {
+    // this callback will be called after files get dropped, we will get the acceptedFiles. If you want, you can even access the rejected files too
+    console.log(acceptedFiles);
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +26,7 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
+        <Dropzone onDrop={onDrop} accept={"image/*"} />
       </header>
     </div>
   );
