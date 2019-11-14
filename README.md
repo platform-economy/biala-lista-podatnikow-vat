@@ -8,7 +8,7 @@ https://www.npmjs.com/package/react-dropzone
 
 https://github.com/learnwithparam/logrocket-drag-and-drop
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) (https://create-react-app.dev/)
 
 ## Available Scripts
 
