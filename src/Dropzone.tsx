@@ -19,6 +19,12 @@ function Dropzone() {
   }, [])
 
   function sendRequestCheckAccounts(bankAccounts) {
+    // create array
+    bankAccounts = bankAccounts.split('\n')
+
+    // delete first element in array
+    bankAccounts.shift();
+    bankAccounts.pop();
 
     console.log('test', bankAccounts)
   }
