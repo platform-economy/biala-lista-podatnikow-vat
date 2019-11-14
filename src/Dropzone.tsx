@@ -18,15 +18,33 @@ function Dropzone() {
     acceptedFiles.forEach(file => reader.readAsText(file))
   }, [])
 
-  function sendRequestCheckAccounts(bankAccounts) {
+  function sendRequestCheckAccounts(fileAsArrays) {
+    const API = 'https://wl-api.mf.gov.pl/api/search/bank-account/';
+    let DATE = '?date=2019-11-14&_=1573750564191';
     // create array
-    bankAccounts = bankAccounts.split('\n')
+    fileAsArrays = fileAsArrays.split('\n')
 
     // delete first element in array
-    bankAccounts.shift();
-    bankAccounts.pop();
+    fileAsArrays.shift();
+    fileAsArrays.pop();
 
-    console.log('test', bankAccounts)
+    // delete unnedeeded data for every row
+    for(let i = 0; i < fileAsArrays.length - 1; i++){
+      let singleRow = fileAsArrays[i].split('|')
+      singleRow.splice(0,1)
+      singleRow.splice(0,1)
+      singleRow.splice(0,1)
+      singleRow.splice(3,5)
+      
+      fetch(API + singleRow[2] + DATE, {
+        headers: new Headers({
+
+        })
+      })
+        .then(response => console.log)
+
+      console.log(singleRow);
+    };
   }
 
   const { getRootProps, getInputProps } = useDropzone({onDrop})
