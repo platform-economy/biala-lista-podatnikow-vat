@@ -10,15 +10,20 @@ function Dropzone() {
     reader.onabort = () => console.log('file reading was aborted')
     reader.onerror = () => console.log('file reading has failed')
     reader.onload = () => {
-      console.log(acceptedFiles)
-      // Do whatever you want with the file contents
-      const binaryStr = reader.result
-      console.log(binaryStr)
+      console.log('File describtion: ', acceptedFiles)
+      const fileAsString = reader.result
+      sendRequestCheckAccounts(fileAsString)
     }
 
-    acceptedFiles.forEach(file => reader.readAsArrayBuffer(file))
+    acceptedFiles.forEach(file => reader.readAsText(file))
   }, [])
-  const {getRootProps, getInputProps} = useDropzone({onDrop})
+
+  function sendRequestCheckAccounts(bankAccounts) {
+
+    console.log('test', bankAccounts)
+  }
+
+  const { getRootProps, getInputProps } = useDropzone({onDrop})
 
   return (
     <div {...getRootProps()}>
