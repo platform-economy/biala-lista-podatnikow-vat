@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Dropzone from "./Dropzone";
+// import * as XLSX from 'xlsx';
 
 
 const App: React.FC = () => {
@@ -12,7 +12,9 @@ const App: React.FC = () => {
 
     reader.onabort = () => console.log('file reading was aborted')
     reader.onerror = () => console.log('file reading has failed')
+
     reader.onload = () => {
+      console.log(acceptedFiles)
       const binaryString = reader.result
       console.log(binaryString);
     }
@@ -24,7 +26,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -35,8 +37,8 @@ const App: React.FC = () => {
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
-        <Dropzone onDrop={onDrop} accept={"text/*"} />
+        </a> */}
+        <Dropzone onDrop={onDrop} accept={"*/*"} />
       </header>
     </div>
   );
