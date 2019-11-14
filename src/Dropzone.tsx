@@ -1,33 +1,31 @@
-import React from "react";
+import React, {useCallback} from "react";
+
 // Import the useDropzone hooks from react-dropzone
 import { useDropzone } from "react-dropzone";
 
-const Dropzone = ({ onDrop, accept }) => {
-  // Initializing useDropzone hooks with options
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept
-  });
+function Dropzone() {
+  const onDrop = useCallback(acceptedFiles => {
+    const reader = new FileReader()
 
-  /* 
-    useDropzone hooks exposes two functions called getRootProps and getInputProps
-    and also exposes isDragActive boolean
-  */
+    reader.onabort = () => console.log('file reading was aborted')
+    reader.onerror = () => console.log('file reading has failed')
+    reader.onload = () => {
+      console.log(acceptedFiles)
+      // Do whatever you want with the file contents
+      const binaryStr = reader.result
+      console.log(binaryStr)
+    }
+
+    acceptedFiles.forEach(file => reader.readAsArrayBuffer(file))
+  }, [])
+  const {getRootProps, getInputProps} = useDropzone({onDrop})
 
   return (
     <div {...getRootProps()}>
-      <input className="dropzone-input" {...getInputProps()} />
-      <div className="text-center">
-        {isDragActive ? (
-          <p className="dropzone-content">Release to drop the files here</p>
-        ) : (
-          <p className="dropzone-content">
-            Drop some files here, or click to select files to import bank accounts.
-          </p>
-        )}
-      </div>
+      <input {...getInputProps()} />
+      <p>Drag 'n' drop some files here, or click to select files</p>
     </div>
-  );
-};
+  )
+}
 
 export default Dropzone;

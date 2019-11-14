@@ -13,8 +13,7 @@
     "react-dropzone-uploader": "^2.10.2",
     "react-file-reader": "^1.1.4",
     "react-scripts": "3.2.0",
-    "typescript": "3.7.2",
-    "xlsx": "^0.15.1"
+    "typescript": "3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
