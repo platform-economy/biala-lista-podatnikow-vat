@@ -38,7 +38,7 @@ function Dropzone() {
       
       fetch(API + singleRow[2] + DATE, {
         headers: new Headers({
-          
+          "Access-Control-Allow-Origin" : "*"
         })
       })
       .then(response => console.log(response))
