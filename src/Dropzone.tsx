@@ -1,9 +1,13 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 
 // Import the useDropzone hooks from react-dropzone
 import { useDropzone } from "react-dropzone";
+import { statement } from "@babel/template";
 
 function Dropzone() {
+
+  const [resonse, setResponse] = useState({});
+
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader()
 
@@ -41,7 +45,7 @@ function Dropzone() {
           "Access-Control-Allow-Origin":"https://wl-api.mf.gov.pl/api/"
         })
       })
-      .then(response => console.log(response))
+      .then(response => {console.log(response)})
 
       console.log(singleRow);
     };
@@ -50,10 +54,13 @@ function Dropzone() {
   const { getRootProps, getInputProps } = useDropzone({onDrop})
 
   return (
+
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <p>Drag 'n' drop some files here, or click to select files</p>
+      <textarea defaultValue={''} ></textarea>
     </div>
+
   )
 }
 
