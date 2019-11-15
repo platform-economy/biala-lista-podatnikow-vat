@@ -29,7 +29,7 @@ function Dropzone() {
     fileAsArrays.pop();
 
     // delete unnedeeded data for every row
-    for(let i = 0; i < fileAsArrays.length - 1; i++){
+    for(let i = 0; i < fileAsArrays.length - 1; ++i){
       let singleRow = fileAsArrays[i].split('|')
       singleRow.splice(0,1)
       singleRow.splice(0,1)
@@ -38,10 +38,10 @@ function Dropzone() {
       
       fetch(API + singleRow[2] + DATE, {
         headers: new Headers({
-
+          
         })
       })
-        .then(response => console.log)
+      .then(response => console.log(response))
 
       console.log(singleRow);
     };
