@@ -2,6 +2,7 @@
   "name": "biala-lista-podatnikow-vat",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://wl-api.mf.gov.pl/",
   "dependencies": {
     "@types/jest": "24.0.22",
     "@types/node": "12.12.6",

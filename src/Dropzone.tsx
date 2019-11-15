@@ -19,7 +19,7 @@ function Dropzone() {
   }, [])
 
   function sendRequestCheckAccounts(fileAsArrays) {
-    const API = 'https://wl-api.mf.gov.pl/api/search/bank-account/';
+    const API = '/api/search/bank-account/';
     let DATE = '?date=2019-11-14&_=1573750564191';
     // create array
     fileAsArrays = fileAsArrays.split('\n')
