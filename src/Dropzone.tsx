@@ -5,7 +5,7 @@ import { useDropzone } from "react-dropzone";
 
 function Dropzone() {
 
-  const [response, setResponse] = useState('');
+  let [generalOutput, setTextToFront] = useState('');
 
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader()
@@ -45,11 +45,17 @@ function Dropzone() {
         })
       })
       .then(response => {console.log('response', response)
+        
+        let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + response.statusText + '\n';
+        // console.log('test', textToFront)
+        
+        setTextToFront(`${generalOutput}${textToFrontNew}`);
+
+
         response.blob().then(function(myBlob){
           let obj = URL.createObjectURL(myBlob);
           console.log('obj', obj);
         })
-        setResponse(response.type)
       })
 
       console.log(singleRow);
@@ -63,7 +69,7 @@ function Dropzone() {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <p>Drop some files here, or click to select files</p>
-      <textarea className="App-textarea" value={response} ></textarea>
+      <textarea className="App-textarea" value={generalOutput}></textarea>
     </div>
 
   )
