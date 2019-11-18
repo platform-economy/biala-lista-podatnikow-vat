@@ -32,7 +32,7 @@ function Dropzone() {
     fileAsArrays.pop();
 
     // delete unnedeeded data for every row
-    for(let i = 0; i < fileAsArrays.length - 1; ++i){
+    for(let i = 0; i < fileAsArrays.length; ++i){
       let singleRow = fileAsArrays[i].split('|')
       singleRow.splice(0,1)
       singleRow.splice(0,1)
