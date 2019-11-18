@@ -52,7 +52,7 @@ function Dropzone() {
       })
       .then(response => {console.log('response', response)
         
-        let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + response.statusText + '\n';
+        let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + response.statusText + 'test' + '\n';
         // console.log('test', textToFront)
         generalOutput = generalOutput + textToFrontNew;
         setTextToFront(`${generalOutput}${textToFrontNew}`);
@@ -71,13 +71,13 @@ function Dropzone() {
   const { getRootProps, getInputProps } = useDropzone({onDrop})
 
   return (
-
-    <div {...getRootProps()}>
-      <input {...getInputProps()} />
-      <p>Drop some files here, or click to select files</p>
+    <>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        <p>Drop some files here, or click to select files</p>
+      </div>
       <textarea className="App-textarea" value={generalOutput}></textarea>
-    </div>
-
+    </>
   )
 }
 
