@@ -48,7 +48,7 @@ function Dropzone() {
         
         let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + response.statusText + '\n';
         // console.log('test', textToFront)
-        
+        generalOutput = generalOutput + textToFrontNew;
         setTextToFront(`${generalOutput}${textToFrontNew}`);
 
 
