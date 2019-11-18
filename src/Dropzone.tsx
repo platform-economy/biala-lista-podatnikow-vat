@@ -8,6 +8,8 @@ function Dropzone() {
   let [generalOutput, setTextToFront] = useState('');
 
   const onDrop = useCallback(acceptedFiles => {
+    //clear text area on-drop
+    generalOutput = '';
     const reader = new FileReader()
 
     reader.onabort = () => console.log('file reading was aborted')
