@@ -17,6 +17,11 @@
   color: white;
 }
 
+.App-textarea {
+  width: 1500px;
+  height: 500px;
+}
+
 .App-link {
   color: #09d3ac;
 }

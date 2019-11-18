@@ -63,7 +63,7 @@ function Dropzone() {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <p>Drag 'n' drop some files here, or click to select files</p>
-      <textarea value={response} ></textarea>
+      <textarea className="App-textarea" value={response} ></textarea>
     </div>
 
   )
