@@ -21,6 +21,7 @@ function Dropzone() {
     acceptedFiles.forEach(file => reader.readAsText(file))
   }, [])
 
+  // https://stackoverflow.com/questions/37764665/typescript-sleep/50797405
   function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
