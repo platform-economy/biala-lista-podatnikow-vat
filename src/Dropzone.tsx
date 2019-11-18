@@ -1,6 +1,4 @@
 import React, {useCallback, useState} from "react";
-
-// Import the useDropzone hooks from react-dropzone
 import { useDropzone } from "react-dropzone";
 
 function Dropzone() {
@@ -23,7 +21,11 @@ function Dropzone() {
     acceptedFiles.forEach(file => reader.readAsText(file))
   }, [])
 
-  function sendRequestCheckAccounts(fileAsArrays) {
+  function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  async function sendRequestCheckAccounts(fileAsArrays) {
     const API = '/api/search/bank-account/';
     let DATE = '?date=2019-11-14&_=1573750564191';
     // create array
@@ -32,15 +34,16 @@ function Dropzone() {
     // delete first element in array
     fileAsArrays.shift();
     fileAsArrays.pop();
-
+    
     // delete unnedeeded data for every row
     for(let i = 0; i < fileAsArrays.length; ++i){
+      await delay(700);
       let singleRow = fileAsArrays[i].split('|')
       singleRow.splice(0,1)
       singleRow.splice(0,1)
       singleRow.splice(0,1)
       singleRow.splice(3,5)
-      
+
       fetch(API + singleRow[2] + DATE, {
         headers: new Headers({
           "Access-Control-Allow-Origin":"https://wl-api.mf.gov.pl/api/"
@@ -58,7 +61,7 @@ function Dropzone() {
           let obj = URL.createObjectURL(myBlob);
           console.log('obj', obj);
         })
-      })
+      });
 
       console.log(singleRow);
     };
