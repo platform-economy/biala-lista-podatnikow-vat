@@ -31,7 +31,7 @@ function Dropzone() {
     let DATE = '?date=2019-11-14&_=1573750564191';
     // create array
     fileAsArrays = fileAsArrays.split('\n')
-
+    let isOnVatList = '';
     // delete first element in array
     fileAsArrays.shift();
     fileAsArrays.pop();
@@ -52,19 +52,24 @@ function Dropzone() {
       })
       .then(response => {console.log('response', response)
         
-        let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + response.statusText + 'test' + '\n';
-        // console.log('test', textToFront)
+        response.json().then(body => {
+
+          console.log('body', body)
+          if(body.result.subjects.length === 0){
+            isOnVatList = 'Rachunek nie figuruje na wykazie'
+          }else {
+            isOnVatList = 'Figuruje w rejestrze VAT';
+          }
+        })
+
+        let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + isOnVatList + '\n';
+
         generalOutput = generalOutput + textToFrontNew;
         setTextToFront(`${generalOutput}${textToFrontNew}`);
-
-
-        response.blob().then(function(myBlob){
-          let obj = URL.createObjectURL(myBlob);
-          console.log('obj', obj);
-        })
       });
 
       console.log(singleRow);
+
     };
   }
 
