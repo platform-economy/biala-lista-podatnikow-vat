@@ -27,8 +27,9 @@ function Dropzone() {
   }
 
   async function sendRequestCheckAccounts(fileAsArrays) {
+    let currentTimestamp = Date.now();
     const API = '/api/search/bank-account/';
-    let DATE = '?date=2019-11-14&_=1573750564191';
+    let DATE = '?date=2019-11-19&_=' + currentTimestamp;
     // create array
     fileAsArrays = fileAsArrays.split('\n')
     let isOnVatList = '';
