@@ -55,17 +55,16 @@ function Dropzone() {
         response.json().then(body => {
 
           console.log('body', body)
-          if(body.result.subjects.length === 0){
-            isOnVatList = 'Rachunek nie figuruje na wykazie'
-          }else {
-            isOnVatList = 'Figuruje w rejestrze VAT';
-          }
+
         })
 
         let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + isOnVatList + '\n';
 
         generalOutput = generalOutput + textToFrontNew;
-        setTextToFront(`${generalOutput}${textToFrontNew}`);
+        if(generalOutput === textToFrontNew){
+          textToFrontNew = '';
+        }
+        setTextToFront(generalOutput);
       });
 
       console.log(singleRow);
