@@ -87,7 +87,7 @@ function Dropzone() {
     <>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
-        <p>Drop proper file HERE, or click to select files</p>
+        <p>Drop proper file HERE, or click to select file.</p>
       </div>
       <textarea className="App-textarea" value={generalOutput}></textarea>
     </>
