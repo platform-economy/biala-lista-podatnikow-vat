@@ -55,16 +55,23 @@ function Dropzone() {
         response.json().then(body => {
 
           console.log('body', body)
+          let isGiverMoney = ''
+
+          if(body.result.subjects.length === 0){
+            isGiverMoney = 'Rachunek nie figuruje na wykazie';
+          }else{
+            isGiverMoney = 'Figuruje w rejestrze VAT';
+          }
+
+          let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + isGiverMoney + '\n';
+
+          generalOutput = generalOutput + textToFrontNew;
+          if(generalOutput === textToFrontNew){
+            textToFrontNew = '';
+          }
+          setTextToFront(generalOutput);
 
         })
-
-        let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + isOnVatList + '\n';
-
-        generalOutput = generalOutput + textToFrontNew;
-        if(generalOutput === textToFrontNew){
-          textToFrontNew = '';
-        }
-        setTextToFront(generalOutput);
       });
 
       console.log(singleRow);
