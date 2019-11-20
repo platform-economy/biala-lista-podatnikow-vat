@@ -33,7 +33,6 @@ function Dropzone() {
     let DATE = '?date=' + dateAsDays +'&_=' + currentTimestamp;
     // create array
     fileAsArrays = fileAsArrays.split('\n')
-    let isOnVatList = '';
     // delete first element in array
     fileAsArrays.shift();
     fileAsArrays.pop();
