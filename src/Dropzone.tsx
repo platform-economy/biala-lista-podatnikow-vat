@@ -64,7 +64,7 @@ function Dropzone() {
             isGiverMoney = 'FIGURUJE w rejestrze VAT';
           }
 
-          let textToFrontNew = i + 1 + ' ' + isGiverMoney + ' ' + singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + '\n';
+          let textToFrontNew = i + 1 + ' ' + isGiverMoney + ' ' + singleRow[2] + ' ' + singleRow[1] + ' ' + singleRow[0] + '\n';
 
           generalOutput = generalOutput + textToFrontNew;
           if(generalOutput === textToFrontNew){
