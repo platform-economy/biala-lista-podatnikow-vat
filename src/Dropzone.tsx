@@ -36,10 +36,10 @@ function Dropzone() {
     // delete first element in array
     fileAsArrays.shift();
     fileAsArrays.pop();
-    
+
     // delete unnedeeded data for every row
     for(let i = 0; i < fileAsArrays.length; ++i){
-      await delay(700);
+      await delay(1000);
       let singleRow = fileAsArrays[i].split('|')
       singleRow.splice(0,1)
       singleRow.splice(0,1)
@@ -59,12 +59,12 @@ function Dropzone() {
           let isGiverMoney = ''
 
           if(body.result.subjects.length === 0){
-            isGiverMoney = 'Rachunek nie figuruje na wykazie';
+            isGiverMoney = '››› NIE ››› figuruje na wykazie';
           }else{
-            isGiverMoney = 'Figuruje w rejestrze VAT';
+            isGiverMoney = 'FIGURUJE w rejestrze VAT';
           }
 
-          let textToFrontNew = singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + ' ' + isGiverMoney + '\n';
+          let textToFrontNew = i + 1 + ' ' + isGiverMoney + ' ' + singleRow[0] + ' ' + singleRow[1] + ' ' + singleRow[2] + '\n';
 
           generalOutput = generalOutput + textToFrontNew;
           if(generalOutput === textToFrontNew){
