@@ -55,7 +55,7 @@ function Dropzone() {
         
         response.json().then(body => {
 
-          console.log('body', body)
+          // console.log('body', body)
           let isGiverMoney = ''
 
           if(body.result.subjects.length === 0){
@@ -75,7 +75,7 @@ function Dropzone() {
         })
       });
 
-      console.log(singleRow);
+      // console.log(singleRow);
 
     };
   }
