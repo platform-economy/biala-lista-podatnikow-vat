@@ -18,8 +18,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Format pliku *.txt
 
-`23423442234234422<br/>`
-
+```23423442234234422
 `1|0|KOFI|Tauron|01-682 Warszawa|87105000861000009030410063||1||1|
 1|0|KOFI|Tauron|01-682 Koszalin|60105012301000000202113056||1||1|
 1|0|KOFI|Fundacja XYZ|01-682 Gdańsk|13124010371111001017602908||1||1|
@@ -33,4 +32,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 1|0|KOFI|Firma QWERTY|01-682 Wrocław|19249000050000460064651942||1||1|
 1|0|KOFI|Firma XYZ|01-682 Szczecin|28114020170000420203281268||1||1|
 1|0|KOFI|Tauron|01-682 Szczecin|60105012301000000202113056||1||1|
-1|0|KOFI|Firma ABC|01-682 Wrocław|87105000861000009030410063||1||1|`
+1|0|KOFI|Firma ABC|01-682 Wrocław|87105000861000009030410063||1||1|```
