@@ -2,6 +2,8 @@
 
 # biala-lista-podatnikow-vat
 
+![Nagranie](https://github.com/thirdwave-network/biala-lista-podatnikow-vat/blob/master/rec.gif)
+
 https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka/
 
 https://www.npmjs.com/package/react-dropzone
