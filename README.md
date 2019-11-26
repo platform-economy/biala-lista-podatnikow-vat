@@ -16,7 +16,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 2. `yarn build` - optimized production build
 
-# Format pliku *.txt
+# Wymagany format pliku *.txt
 
 ```
 23423442234234422
