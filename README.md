@@ -15,3 +15,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 1. `yarn install` - install dependecies
 
 2. `yarn build` - optimized production build
+
+# Format pliku *.txt
+
+`23423442
+1|0|KOFI|Tauron|01-682 Warszawa|87105000861000009030410063||1||1|
+1|0|KOFI|Tauron|01-682 Warszawa|60105012301000000202113056||1||1|
+1|0|KOFI|Firma XYZ|01-682 Warszawa|28114020170000420203281268||1||1|
+1|0|KOFI|Tauron|01-682 Warszawa|60105012301000000202113056||1||1|
+1|0|KOFI|Firma ABC|01-682 Warszawa|87105000861000009030410063||1||1|
+1|0|KOFI|Tauron|01-682 Warszawa|60105012301000000202113056||1||1|`
