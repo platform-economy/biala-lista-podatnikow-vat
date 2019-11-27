@@ -1,19 +1,32 @@
-import React, {useCallback, useState} from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-function Dropzone() {
+const API_BASE = '/api/search/bank-accounts/';
 
-  let [generalOutput, setTextToFront] = useState('');
+const FETCH_CONFIG = {
+  headers: new Headers({
+    "Access-Control-Allow-Origin": "https://wl-api.mf.gov.pl/api/",
+  }),
+}
+
+type AccountNumber = string;
+type CompanyData = {
+  name: string,
+  account: string,
+  address: string,
+};
+
+function Dropzone() {
+  const [generalOutput, setGeneralOutput] = useState('');
 
   const onDrop = useCallback(acceptedFiles => {
-    //clear text area on-drop
-    generalOutput = '';
+    // clear text area on-drop
+    setGeneralOutput('')
     const reader = new FileReader()
 
-    reader.onabort = () => console.log('file reading was aborted')
-    reader.onerror = () => console.log('file reading has failed')
+    reader.onabort = () => console.warn('file reading was aborted')
+    reader.onerror = () => console.error('file reading has failed')
     reader.onload = () => {
-      console.log('File describtion: ', acceptedFiles)
       const fileAsString = reader.result
       sendRequestCheckAccounts(fileAsString)
     }
@@ -21,66 +34,77 @@ function Dropzone() {
     acceptedFiles.forEach(file => reader.readAsText(file))
   }, [])
 
-  // https://stackoverflow.com/questions/37764665/typescript-sleep/50797405
-  function delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
+  const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
-  async function sendRequestCheckAccounts(fileAsArrays) {
-    let currentTimestamp = Date.now();
-    let dateAsDays = new Date().toISOString().slice(0,10);
-    const API = '/api/search/bank-account/';
-    let DATE = '?date=' + dateAsDays +'&_=' + currentTimestamp;
-    // create array
-    fileAsArrays = fileAsArrays.split('\n')
-    // delete first element in array
-    fileAsArrays.shift();
-    fileAsArrays.pop();
+  async function sendRequestCheckAccounts(fileAsString) {
+    const now = new Date();
+    const currentTimestamp = now.getTime();
+    const dateAsDays = now.toISOString().split('T')[0]; // YYYY-MM-DD
 
-    // delete unnedeeded data for every row
-    for(let i = 0; i < fileAsArrays.length; ++i){
-      await delay(1000);
-      let singleRow = fileAsArrays[i].split('|')
-      singleRow.splice(0,1)
-      singleRow.splice(0,1)
-      singleRow.splice(0,1)
-      singleRow.splice(3,5)
+    // Prepare data
+    const fileAsArrays = fileAsString.split(/\n/);
+    fileAsArrays.shift(); // required because of format of downloaded file
 
-      fetch(API + singleRow[2] + DATE, {
-        headers: new Headers({
-          "Access-Control-Allow-Origin":"https://wl-api.mf.gov.pl/api/"
-        })
-      })
-      .then(response => {console.log('response', response)
-        
-        response.json().then(body => {
+    // Hold info about all companies
+    const allCompanies: Map<AccountNumber, CompanyData> = new Map();
 
-          // console.log('body', body)
-          let isGiverMoney = ''
+    // Max 30 companies per request
+    // https://wl-api.mf.gov.pl/#bankAccounts?date
+    const companiesInParts: AccountNumber[][] = [];
 
-          if(body.result.subjects.length === 0){
-            isGiverMoney = '››› NIE ››› figuruje na wykazie';
-          }else{
-            isGiverMoney = 'FIGURUJE w rejestrze VAT';
-          }
+    let companies: AccountNumber[] = [];
+    for (let i = 0; i < fileAsArrays.length; ++i) {
+      const line = fileAsArrays[i]
+      const [, , , name, address, account] = line.split('|')
+      if (!name || !address || !account) {
+        console.error(`Wrong format of line: ${i} - ${line}`);
+        continue
+      }
 
-          let textToFrontNew = i + 1 + ' ' + isGiverMoney + ' ' + singleRow[2] + ' ' + singleRow[1] + ' ' + singleRow[0] + '\n';
+      allCompanies.set(account, { name, address, account });
 
-          generalOutput = generalOutput + textToFrontNew;
-          if(generalOutput === textToFrontNew){
-            textToFrontNew = '';
-          }
-          setTextToFront(generalOutput);
+      if (companies.length === 30) {
+        companiesInParts.push(companies);
+        companies = [];
+      }
 
-        })
-      });
-
-      // console.log(singleRow);
-
+      companies.push(account);
     };
-  }
 
-  const { getRootProps, getInputProps } = useDropzone({onDrop})
+    if (companies.length) {
+      companiesInParts.push(companies);
+    }
+
+    if (companiesInParts.length === 0) {
+      console.warn(`Couldn't find any company in provided file.`);
+      return
+    }
+
+    // Set of all account numbers returned in response from api
+    const foundAccNumbers: Set<string> = new Set();
+
+    await Promise.all(companiesInParts.map(accounts => {
+      return fetch(`${API_BASE}${accounts}?date=${dateAsDays}&_=${currentTimestamp}`, FETCH_CONFIG)
+        .then(response => {
+          response.json().then(body => {
+            body.result.subjects.forEach(data => {
+              data.accountNumbers.forEach(acc => foundAccNumbers.add(acc.toString()));
+            });
+          });
+        });
+    }));
+
+    for (const { account, address, name } of Array.from(allCompanies.values())) {
+      let result = '››› NIE ››› figuruje na wykazie';
+
+      if (foundAccNumbers.has(account)) {
+        result = 'FIGURUJE w rejestrze VAT';
+      }
+
+      setGeneralOutput(generalOutput =>
+        generalOutput += `${result} ${account} ${address} ${name}'\n'`);
+    }
+  }
 
   return (
     <>
@@ -88,7 +112,7 @@ function Dropzone() {
         <input {...getInputProps()} />
         <p>Drop proper file HERE, or click to select file.</p>
       </div>
-      <textarea className="App-textarea" value={generalOutput}></textarea>
+      <textarea className="App-textarea" value={generalOutput} readOnly={true} />
     </>
   )
 }
