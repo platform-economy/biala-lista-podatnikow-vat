@@ -37,6 +37,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 1|0|ABCN|Tauron|01-682 Szczecin|60105012301000000202113056||1||1|
 1|0|ABCN|Firma ABC|01-682 Wrocław|87105000861000009030410063||1||1|
 ```
+[Przykładowy plik](https://github.com/thirdwave-network/biala-lista-podatnikow-vat/blob/master/przykladowy_plik.txt)
+
 ### Uwaga
 
 Wymagana jest pierwsza linia w pliku w postaci dowolnego ciągu znaków - jednak nie jest brana pod uwagę pod względem wyszukiwania numeru bankowego (wymóg podyktowany formatem pliku generowanym przez system bankowy).
