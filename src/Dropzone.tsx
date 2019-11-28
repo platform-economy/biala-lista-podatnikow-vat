@@ -85,10 +85,10 @@ function Dropzone() {
 
     await Promise.all(companiesInParts.map(accounts => {
       return fetch(`${API_BASE}${accounts}?date=${dateAsDays}&_=${currentTimestamp}`, FETCH_CONFIG)
-        .then(response => {
-          response.json().then(body => {
+        .then(async (response) => {
+          return await response.json().then(body => {
             body.result.subjects.forEach(data => {
-              data.accountNumbers.forEach(acc => foundAccNumbers.add(acc.toString()));
+              data.accountNumbers.forEach(acc => foundAccNumbers.add(acc));
             });
           });
         });
@@ -102,7 +102,7 @@ function Dropzone() {
       }
 
       setGeneralOutput(generalOutput =>
-        generalOutput += `${result} ${account} ${address} ${name}'\n'`);
+        generalOutput += `${result} ${account} ${address} ${name}\n`);
     }
   }
 
